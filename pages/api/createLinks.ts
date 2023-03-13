@@ -1,27 +1,21 @@
 import { NextApiRequest, NextApiResponse} from "next";
 import prisma from "../../prisma/client";
 
-type DataProps = {
-    content: string,
-    published: boolean,
-    userId: number
-}
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
     try {
-        const data: DataProps = JSON.parse(req.body);
+        const data = JSON.parse(req.body);
         console.log(data);
         if (req.method === "POST") {
             // check for link content
-            if (!data.content) {
+            if (!data.link) {
                 return res.status(400).json({error: "Link content is required"})
             }
             try {
                 const link = await prisma.link.create({
                     data: {
-                        content: data.content,
-                        published: false,
-                        userId: 1
+                        url: data.link,
+                        userId: "cjld2cjxh0000qzrmn831i7rn", // TODO: get user id from session
                     }
                 })
                 return res.status(200).json(link)

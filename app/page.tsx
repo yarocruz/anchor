@@ -9,7 +9,7 @@ async function getLinks() {
   return response.json();
 }
 export default async function Home() {
-    const data: {id: number, content: string }[] = await getLinks()
+    const data: { id: string, url: string }[] = await getLinks()
   return (
     <main className="container mx-auto">
       <h1>Home</h1>
@@ -23,8 +23,8 @@ export default async function Home() {
                 >
                     <a
                         className="text-blue-500"
-                        href={link.content}
-                    >{link.content}</a></li>
+                        href={link.url}
+                    >{link.url}</a></li>
             ))}
         </ul>
     </main>
