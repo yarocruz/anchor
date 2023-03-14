@@ -32,7 +32,7 @@ export default function LinkSubmitForm() {
             onChange={(event) => setLink(event.target.value)}
         />
         <button
-            className="p-2 text-white bg-blue-500 rounded"
+            className="btn rounded bg-orange-600"
             type="submit"
         >Add Link</button>
         </form>

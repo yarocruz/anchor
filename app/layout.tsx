@@ -1,5 +1,6 @@
 import './globals.css'
 import React from "react";
+import Navbar from "@/app/auth/Navbar";
 
 export const metadata = {
   title: 'Hypertext',
@@ -13,7 +14,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="bg-slate-50">{children}</body>
+      <body className="bg-slate-50">
+        <Navbar />
+      {children}
+      </body>
     </html>
   )
 }
