@@ -21,18 +21,18 @@ export default function LinkSubmitForm() {
 
     return (
         <form
-        className="flex space-x-2"
+        className="flex space-x-2 my-2 max-w-md"
         onSubmit={handleSubmit}
         >
         <input
-            className="flex-1 p-2 border border-gray-300 rounded"
+            className="input input-bordered input-md w-full max-w-xs"
             type="text"
             placeholder="Enter a url"
             value={link}
             onChange={(event) => setLink(event.target.value)}
         />
         <button
-            className="btn rounded bg-orange-600"
+            className="btn btn-md rounded bg-orange-600 border-0"
             type="submit"
         >Add Link</button>
         </form>
