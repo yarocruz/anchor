@@ -10,7 +10,7 @@ export default async function Navbar() {
         <div className="navbar bg-orange-600 text-white">
             <div className="container mx-auto p-2">
                 <div className="flex-1">
-                    <a href="#" className="normal-case text-xl">Hypertext</a>
+                    <a href="#" className="normal-case text-xl">Anchor</a>
                 </div>
                 <div className="flex-2">
                     <a href="#" className="px-3">Quick Tour</a>
