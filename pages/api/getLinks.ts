@@ -5,7 +5,11 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
         try {
             // Get prisma to fetch Link
-            const data = await prisma.link.findMany()
+            const data = await prisma.link.findMany({
+                orderBy: {
+                   id: "desc"
+                }
+            })
             return res.status(200).json(data)
         } catch (error) {
             return res.status(500).json(error)
