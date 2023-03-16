@@ -8,6 +8,9 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             const data = await prisma.link.findMany({
                 orderBy: {
                    id: "desc"
+                },
+                include: {
+                    tags: true,
                 }
             })
             return res.status(200).json(data)

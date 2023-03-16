@@ -13,17 +13,16 @@ export default function LinkSubmitForm() {
     const [url, setUrl] = useState('')
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')
-    const [tags, setTags] = useState<string[]>([])
+    const [tags, setTags] = useState('')
     const [linkData, setLinkData] = useState<LinkData>({ url: '', title: '', description: '', tags: [] })
     const router = useRouter()
 
 
     async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault()
-        console.log(linkData)
         const response = await fetch(`/api/createLinks`, {
             method: 'POST',
-            body: JSON.stringify({ ...linkData}),
+            body: JSON.stringify({ ...linkData, tags: tags.split(" ")}),
         })
         router.refresh()
         if (!response.ok) {
@@ -32,7 +31,7 @@ export default function LinkSubmitForm() {
         setUrl('')
         setTitle('')
         setDescription('')
-        setTags([])
+        setTags('')
     }
 
     return (
@@ -76,7 +75,7 @@ export default function LinkSubmitForm() {
             placeholder="Enter tag(s) (optional)"
             value={tags}
             onChange={(event) => {
-                setTags(event.target.value.split(' '))
+                setTags(event.target.value)
                 setLinkData({ ...linkData, tags: event.target.value.split(' ') })
             }}
         />

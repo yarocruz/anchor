@@ -17,8 +17,9 @@ export default async function Home() {
         url: string,
         title?: string,
         description?: string,
-        tags?: string[]
+        tags?: {name: string, id: string}[]
     }[] = await getLinks()
+
   return (
         <main className="container mx-auto my-2 w-auto p-2">
 
@@ -31,10 +32,9 @@ export default async function Home() {
 
             <div className="my-5">
                 {data.map((link) => (
-                    <div className="py-3 border-b-gray-100 border-b-2">
+                    <div key={link.id} className="py-3 border-b-gray-100 border-b-2">
                         <p
                             className="break-words"
-                            key={link.id}
                         >
                             <a
                                 className="text-orange-600"
@@ -42,7 +42,9 @@ export default async function Home() {
                             >{link.title ? link.title : link.url}</a>
                         </p>
                         <p>{link.description ? link.description : null}</p>
-                        <p>{link.tags ? link.tags.join(", ") : null}</p>
+                        <p>{link.tags ? link.tags.map(tag => (
+                            <span id={tag.id} className="mr-3 text-amber-800">{tag.name}</span>
+                        )) : null}</p>
                     </div>
                 ))}
 
