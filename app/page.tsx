@@ -12,7 +12,13 @@ async function getLinks() {
 export default async function Home() {
     const session = await getServerSession(authOptions);
 
-    const data: { id: string, url: string }[] = await getLinks()
+    const data: {
+        id: string,
+        url: string,
+        title?: string,
+        description?: string,
+        tags?: string[]
+    }[] = await getLinks()
   return (
         <main className="container mx-auto my-2 w-auto p-2">
 
@@ -23,18 +29,24 @@ export default async function Home() {
                 <a className="tab bg-orange-400 text-white">Tags</a>
             </div>
 
-            <ul className="my-5">
+            <div className="my-5">
                 {data.map((link) => (
-                    <li
-                        className="break-words py-3 border-b-gray-100 border-b-2"
-                        key={link.id}
-                    >
-                        <a
-                            className="text-orange-600"
-                            href={link.url}
-                        >{link.url}</a></li>
+                    <div className="py-3 border-b-gray-100 border-b-2">
+                        <p
+                            className="break-words"
+                            key={link.id}
+                        >
+                            <a
+                                className="text-orange-600"
+                                href={link.url}
+                            >{link.title ? link.title : link.url}</a>
+                        </p>
+                        <p>{link.description ? link.description : null}</p>
+                        <p>{link.tags ? link.tags.join(", ") : null}</p>
+                    </div>
                 ))}
-            </ul>
+
+            </div>
         </main>
 
   )
