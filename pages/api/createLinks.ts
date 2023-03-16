@@ -12,14 +12,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
                 return res.status(400).json({error: "Link content is required"})
             }
             try {
-                // Todo: Create Tags if there are any
-                // const tags = linkData.tags ? linkData.tags.map((tag: string) => {
-                //     return prisma.tag.create({
-                //         data: {
-                //             name: tag,
-                //         }
-                //     })
-                // }) : [];
                 const link = await prisma.link.create({
                     data: {
                         url: linkData.url,

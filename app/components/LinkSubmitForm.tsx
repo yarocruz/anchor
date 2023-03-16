@@ -36,11 +36,11 @@ export default function LinkSubmitForm() {
 
     return (
         <form
-        className="flex flex-col w-full max-w-md"
+        className="flex flex-col w-full max-w-xs"
         onSubmit={handleSubmit}
         >
         <input
-            className="input input-bordered mb-2"
+            className="input input-bordered mb-2 input-sm"
             type="text"
             placeholder="Enter a url"
             value={url}
@@ -50,7 +50,7 @@ export default function LinkSubmitForm() {
             }}
         />
         <input
-            className="input input-bordered mb-2"
+            className="input input-bordered mb-2 input-sm"
             type="text"
             placeholder="Enter a title(optional)"
             value={title}
@@ -60,7 +60,7 @@ export default function LinkSubmitForm() {
             }}
         />
         <input
-            className="input input-bordered mb-2"
+            className="input input-bordered mb-2 input-sm"
             type="text"
             placeholder="Enter description(optional)"
             value={description}
@@ -70,7 +70,7 @@ export default function LinkSubmitForm() {
             }}
         />
         <input
-            className="input input-bordered mb-2"
+            className="input input-bordered mb-2 input-sm"
             type="text"
             placeholder="Enter tag(s) (optional)"
             value={tags}
@@ -80,7 +80,7 @@ export default function LinkSubmitForm() {
             }}
         />
         <button
-            className="btn btn-md rounded bg-orange-600 border-0"
+            className="btn btn-sm rounded bg-orange-600 border-0"
             type="submit"
         >Add Link</button>
         </form>
