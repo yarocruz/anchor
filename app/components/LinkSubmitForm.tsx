@@ -2,34 +2,83 @@
 import React, { useState } from 'react'
 import { useRouter } from "next/navigation"
 
+interface LinkData {
+    url: string,
+    title: string,
+    description: string,
+    tags: string[]
+}
+
 export default function LinkSubmitForm() {
-    const [link, setLink] = useState('')
+    const [url, setUrl] = useState('')
+    const [title, setTitle] = useState('')
+    const [description, setDescription] = useState('')
+    const [tags, setTags] = useState<string[]>([])
+    const [linkData, setLinkData] = useState<LinkData>({ url: '', title: '', description: '', tags: [] })
     const router = useRouter()
+
 
     async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault()
+        console.log(linkData)
         const response = await fetch(`/api/createLinks`, {
             method: 'POST',
-            body: JSON.stringify({ link }),
+            body: JSON.stringify({ ...linkData}),
         })
         router.refresh()
         if (!response.ok) {
         console.log(response)
         }
-        setLink('')
+        setUrl('')
+        setTitle('')
+        setDescription('')
+        setTags([])
     }
 
     return (
         <form
-        className="flex space-x-2 my-2 max-w-md"
+        className="flex flex-col w-full max-w-md"
         onSubmit={handleSubmit}
         >
         <input
-            className="input input-bordered input-md w-full max-w-xs"
+            className="input input-bordered mb-2"
             type="text"
             placeholder="Enter a url"
-            value={link}
-            onChange={(event) => setLink(event.target.value)}
+            value={url}
+            onChange={(event) => {
+                setUrl(event.target.value)
+                setLinkData({ ...linkData, url: event.target.value })
+            }}
+        />
+        <input
+            className="input input-bordered mb-2"
+            type="text"
+            placeholder="Enter a title(optional)"
+            value={title}
+            onChange={(event) => {
+                setTitle(event.target.value)
+                setLinkData({ ...linkData, title: event.target.value })
+            }}
+        />
+        <input
+            className="input input-bordered mb-2"
+            type="text"
+            placeholder="Enter description(optional)"
+            value={description}
+            onChange={(event) => {
+                setDescription(event.target.value)
+                setLinkData({ ...linkData, description: event.target.value })
+            }}
+        />
+        <input
+            className="input input-bordered mb-2"
+            type="text"
+            placeholder="Enter tag(s) (optional)"
+            value={tags}
+            onChange={(event) => {
+                setTags(event.target.value.split(' '))
+                setLinkData({ ...linkData, tags: event.target.value.split(' ') })
+            }}
         />
         <button
             className="btn btn-md rounded bg-orange-600 border-0"
