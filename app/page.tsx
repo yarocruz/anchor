@@ -1,6 +1,7 @@
 import LinkSubmitForm from "./components/LinkSubmitForm";
 import { getServerSession} from "next-auth";
 import { authOptions } from "../pages/api/auth/[...nextauth]";
+import { SessionProvider } from "next-auth/react";
 
 async function getLinks() {
   const response = await fetch(`${process.env.BASE_URL}/api/getLinks`, {cache: "no-store"})
@@ -43,7 +44,7 @@ export default async function Home() {
                         </p>
                         <p>{link.description ? link.description : null}</p>
                         <p>{link.tags ? link.tags.map(tag => (
-                            <span id={tag.id} className="mr-3 text-amber-800">{tag.name}</span>
+                            <span key={tag.id} id={tag.id} className="mr-3 text-amber-800">{tag.name}</span>
                         )) : null}</p>
                     </div>
                 ))}

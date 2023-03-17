@@ -1,11 +1,11 @@
 import { NextApiRequest, NextApiResponse} from "next";
 import prisma from "../../prisma/client";
 
-
 export default async (req: NextApiRequest, res: NextApiResponse) => {
+
     try {
         const linkData = JSON.parse(req.body);
-        console.log("From CreateLinks", linkData);
+
         if (req.method === "POST") {
             // check for link content
             if (!linkData.url) {
