@@ -1,7 +1,6 @@
 import LinkSubmitForm from "./components/LinkSubmitForm";
 import { getServerSession} from "next-auth";
 import { authOptions } from "../pages/api/auth/[...nextauth]";
-import { SessionProvider } from "next-auth/react";
 
 async function getLinks() {
   const response = await fetch(`${process.env.BASE_URL}/api/getLinks`, {cache: "no-store"})
@@ -12,7 +11,6 @@ async function getLinks() {
 }
 export default async function Home() {
     const session = await getServerSession(authOptions);
-
     const data: {
         id: string,
         url: string,

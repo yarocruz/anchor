@@ -10,7 +10,11 @@ interface LinkData {
 }
 
 export default function LinkSubmitForm() {
-    const [linkData, setLinkData] = useState<LinkData>({ url: '', title: '', description: '', tags: [] })
+    const [linkData, setLinkData] = useState<LinkData>({
+        url: '',
+        title: '',
+        description: '',
+        tags: [] })
     const router = useRouter()
 
     async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {

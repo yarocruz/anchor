@@ -1,7 +1,10 @@
 import { NextApiRequest, NextApiResponse} from "next";
 import prisma from "../../prisma/client";
+import { getServerSession } from "next-auth";
+import { authOptions } from "./auth/[...nextauth]";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
+    const session = await getServerSession(req, res, authOptions);
 
     try {
         const linkData = JSON.parse(req.body);
@@ -12,11 +15,17 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
                 return res.status(400).json({error: "Link content is required"})
             }
             try {
+
+                const userData = await prisma.user.findUnique({
+                    where: {
+                        email: session?.user?.email!
+                    }
+                })
                 const link = await prisma.link.create({
                     data: {
                         url: linkData.url,
                         title: linkData.title ? linkData.title : "",
-                        userId: 'clfb7zw4v00009kag1e7x8t9g', // TODO: get user id from session
+                        userId: userData?.id!,
                         description: linkData.description ? linkData.description : "",
                         tags: {
                             create: linkData.tags ? linkData.tags.map((tag: string) => {
