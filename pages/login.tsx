@@ -7,7 +7,7 @@ export default function Login() {
         <section className='w-3/4 mx-auto flex flex-col gap-10 items-center'>
 
             {/* form */}
-            <form className='flex flex-col gap-5'>
+            <div className='flex flex-col gap-5'>
                 <div className={styles.input_group}>
                     <input
                         className={styles.input_text}
@@ -32,7 +32,7 @@ export default function Login() {
                     </button>
                 </div>
                 <div className="input-button">
-                    <button type='submit' className={styles.button_custom}>
+                    <button type='submit' className={styles.button_custom} onClick={() => signIn('google', { callbackUrl: 'http://localhost:3000'})}>
                         Sign In with Google <Image src={'/assets/google.svg'} width="20" height={20} alt="Google Logo"></Image>
                     </button>
                 </div>
@@ -41,7 +41,7 @@ export default function Login() {
                         Sign In with Github <Image src={'/assets/github.svg'} width={25} height={25} alt="Github Log"></Image>
                     </button>
                 </div>
-            </form>
+            </div>
 
             {/* bottom */}
             <p className='text-center text-gray-400 '>
