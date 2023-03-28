@@ -1,13 +1,15 @@
 import {signIn} from "next-auth/react";
 import Image from 'next/image'
 import "../app/globals.css"
-import styles from "./Form.module.css"
+import styles from "../app/Form.module.css"
 import React from "react";
 import Link from "next/link";
 import { HiAtSymbol, HiFingerPrint } from "react-icons/hi";
 import { useState } from 'react';
 import { useFormik } from 'formik';
 import { useRouter } from 'next/router';
+import login_validate from "../helpers/validate";
+import Navbar from "@/app/auth/Navbar";
 
 interface LoginData {
     email: string,
@@ -22,7 +24,8 @@ export default function Login() {
             email: '',
             password: ''
         },
-        onSubmit
+        validate: login_validate,
+        onSubmit,
     })
 
     async function onSubmit(values: LoginData) {
@@ -37,10 +40,9 @@ export default function Login() {
     }
 
     return (
-        <section className='w-3/4 mx-auto flex flex-col gap-10 items-center'>
-            {/* form */}
+        <section className='w-3/4 mx-auto flex flex-col gap-10 items-center my-20'>
             <form className='flex flex-col gap-5' onSubmit={formik.handleSubmit}>
-                <div className={styles.input_group}>
+                <div className={`${styles.input_group} ${formik.errors.email && formik.touched.email ? 'border-rose-600' : ''}`}>
                     <input
                         className={styles.input_text}
                         type="email"
@@ -52,10 +54,13 @@ export default function Login() {
                         <HiAtSymbol size={25} />
                     </span>
                 </div>
-                <div className={styles.input_group}>
+
+                {formik.errors.email && formik.touched.email ? <span className='text-rose-500'>{formik.errors.email}</span> : <></>}
+
+                <div className={`${styles.input_group} ${formik.errors.password && formik.touched.password ? 'border-rose-600' : ''}`}>
                     <input
                         className={styles.input_text}
-                        type="password"
+                        type={`${show ? "text" : "password"}`}
                         name='password'
                         placeholder='password'
                         {...formik.getFieldProps('password')}
@@ -65,7 +70,8 @@ export default function Login() {
                     </span>
                 </div>
 
-                {/* login buttons */}
+                {formik.errors.password && formik.touched.password ? <span className='text-rose-500'>{formik.errors.password}</span> : <></>}
+
                 <div className="input-button">
                     <button type='submit' className={styles.button}>
                         Login
@@ -83,9 +89,8 @@ export default function Login() {
                 </div>
             </form>
 
-            {/* bottom */}
-            <p className='text-center text-gray-400 '>
-                don't have an account yet? <Link className='text-blue-700' href={'/register'}>Sign Up</Link>
+            <p className='text-center text-gray-400'>
+                Don't have an account yet? <Link className='text-orange-700' href={'/register'}>Sign Up</Link>
             </p>
         </section>
 

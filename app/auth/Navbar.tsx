@@ -6,6 +6,7 @@ import Logout from "@/app/auth/Logout";
 
 export default async function Navbar() {
     const session = await getServerSession(authOptions);
+
     return (
         <div className="navbar bg-orange-600 text-white">
             <div className="container mx-auto p-2">

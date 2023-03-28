@@ -3,7 +3,7 @@ import React from "react";
 import Navbar from "@/app/auth/Navbar";
 
 export const metadata = {
-  title: 'Hypertext',
+  title: 'Anchor',
   description: 'Old school bookmarking',
 }
 
@@ -15,7 +15,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <Navbar />
+      <Navbar />
       {children}
       </body>
     </html>

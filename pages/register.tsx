@@ -1,10 +1,11 @@
 import Link from 'next/link'
-import styles from './Form.module.css';
+import styles from '../app/Form.module.css';
 import Image from 'next/image'
 import { HiAtSymbol, HiFingerPrint, HiOutlineUser } from "react-icons/hi";
 import { useState } from 'react';
 import { useFormik } from 'formik';
 import { useRouter } from 'next/router';
+import {registerValidate} from '../helpers/validate';
 
 interface SignupData {
     username: string,
@@ -24,6 +25,7 @@ export default function Register() {
             password: '',
             cpassword: ''
         },
+        validate: registerValidate,
         onSubmit
     })
 
@@ -42,11 +44,7 @@ export default function Register() {
     }
 
     return (
-        <section className='w-3/4 mx-auto flex flex-col gap-10'>
-            <div className="title">
-                <h1 className='text-gray-800 text-4xl font-bold py-4'>Register</h1>
-                <p className='w-3/4 mx-auto text-gray-400'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores, officia?</p>
-            </div>
+        <section className='w-3/4 mx-auto flex flex-col gap-10 items-center my-20'>
 
             {/* form */}
             <form className='flex flex-col gap-5' onSubmit={formik.handleSubmit}>
@@ -62,7 +60,7 @@ export default function Register() {
                     <HiOutlineUser size={25} />
                 </span>
                 </div>
-                {/* {formik.errors.username && formik.touched.username ? <span className='text-rose-500'>{formik.errors.username}</span> : <></>} */}
+                 {formik.errors.username && formik.touched.username ? <span className='text-rose-500'>{formik.errors.username}</span> : <></>}
                 <div className={`${styles.input_group} ${formik.errors.email && formik.touched.email ? 'border-rose-600' : ''}`}>
                     <input
                         type="email"
@@ -75,7 +73,7 @@ export default function Register() {
                     <HiAtSymbol size={25} />
                 </span>
                 </div>
-                {/* {formik.errors.email && formik.touched.email ? <span className='text-rose-500'>{formik.errors.email}</span> : <></>} */}
+                 {formik.errors.email && formik.touched.email ? <span className='text-rose-500'>{formik.errors.email}</span> : <></>}
                 <div className={`${styles.input_group} ${formik.errors.password && formik.touched.password ? 'border-rose-600' : ''}`}>
                     <input
                         type={`${show.password ? "text" : "password"}`}
@@ -114,7 +112,7 @@ export default function Register() {
 
             {/* bottom */}
             <p className='text-center text-gray-400 '>
-                Have an account? <Link className='text-blue-700' href={'/login'}>Sign In</Link>
+                Have an account already? <Link className='text-orange-700' href={'/login'}>Sign In</Link>
             </p>
         </section>
     );
