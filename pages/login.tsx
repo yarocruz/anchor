@@ -46,7 +46,6 @@ export default function Login() {
                     <input
                         className={styles.input_text}
                         type="email"
-                        name='email'
                         placeholder='Email'
                         {...formik.getFieldProps('email')}
                     />
@@ -61,7 +60,6 @@ export default function Login() {
                     <input
                         className={styles.input_text}
                         type={`${show ? "text" : "password"}`}
-                        name='password'
                         placeholder='password'
                         {...formik.getFieldProps('password')}
                     />

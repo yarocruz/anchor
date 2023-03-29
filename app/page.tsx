@@ -1,14 +1,9 @@
 import LinkSubmitForm from "./components/LinkSubmitForm";
 import { getServerSession} from "next-auth";
 import { authOptions } from "../pages/api/auth/[...nextauth]";
+import Link from "next/link";
+import getLinks from "../pages/lib/getLinks";
 
-async function getLinks() {
-  const response = await fetch(`${process.env.BASE_URL}/api/getLinks`, {cache: "no-store"})
-  if (!response.ok) {
-      console.log(response)
-  }
-  return response.json();
-}
 export default async function Home() {
     const session = await getServerSession(authOptions);
     const data: {
@@ -25,8 +20,8 @@ export default async function Home() {
             {session ? ( <LinkSubmitForm /> ) : null}
 
             <div className="tabs mt-10 border-b-4 border-orange-600">
-                <a className="tab bg-orange-400 text-white mr-1.5">Recent Links</a>
-                <a className="tab bg-orange-400 text-white">Tags</a>
+                <Link href='/' className="tab rounded-t-md bg-orange-400 text-white mr-2.5">Recent Links</Link>
+                <Link href='/tags/' className="tab rounded-t-md bg-orange-400 text-white">Tags</Link>
             </div>
 
             <div className="my-5">
@@ -37,6 +32,7 @@ export default async function Home() {
                         >
                             <a
                                 className="text-orange-600"
+                                target="_blank"
                                 href={link.url}
                             >{link.title ? link.title : link.url}</a>
                         </p>
