@@ -38,7 +38,7 @@ export default async function Home() {
                         </p>
                         <p>{link.description ? link.description : null}</p>
                         <p>{link.tags ? link.tags.map(tag => (
-                            <span key={tag.id} id={tag.id} className="mr-3 text-amber-800">{tag.name}</span>
+                            <Link href={`/tags/${tag.name}`} key={tag.id} id={tag.id} className="mr-3 text-amber-800">{tag.name}</Link>
                         )) : null}</p>
                     </div>
                 ))}
