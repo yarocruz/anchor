@@ -3,6 +3,7 @@ import { getServerSession} from "next-auth";
 import { authOptions } from "../../pages/api/auth/[...nextauth]";
 import SignIn from "@/app/auth/SignIn";
 import Logout from "@/app/auth/Logout";
+import Link from "next/link";
 
 export default async function Navbar() {
     const session = await getServerSession(authOptions);
@@ -11,7 +12,7 @@ export default async function Navbar() {
         <div className="navbar bg-orange-600 text-white">
             <div className="container mx-auto p-2">
                 <div className="flex-1">
-                    <a href="#" className="normal-case text-xl">Anchor</a>
+                    <Link href="/" className="normal-case text-xl">Anchor</Link>
                 </div>
                 <div className="flex-2">
                     <a href="#" className="px-3">Quick Tour</a>

@@ -3,6 +3,7 @@ import prisma from "../../prisma/client";
 import { getServerSession } from "next-auth";
 import { authOptions } from "./auth/[...nextauth]";
 
+
 export default async (req: NextApiRequest, res: NextApiResponse) => {
     const session = await getServerSession(req, res, authOptions);
 
@@ -28,9 +29,14 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
                         userId: userData?.id!,
                         description: linkData.description ? linkData.description : "",
                         tags: {
-                            create: linkData.tags ? linkData.tags.map((tag: string) => {
+                            connectOrCreate: linkData.tags ? linkData.tags.map((tag: string) => {
                                 return {
-                                    name: tag,
+                                    where: {
+                                        name: tag
+                                    },
+                                    create: {
+                                        name: tag
+                                    }
                                 }
                             }) : []
                         }
