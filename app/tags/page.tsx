@@ -8,6 +8,16 @@ export default async function Page() {
     const session = await getServerSession(authOptions);
     const data = await getTags()
 
+    const filterDuplicateTags = (d) => {
+        const tags = []
+        d.map((tag) => {
+            if (!tags.includes(tag.name) && tag.name !== "") {
+                tags.push(tag.name)
+            }
+        })
+        return tags
+    }
+
     return (
 
         <main className="container mx-auto my-2 w-auto p-2">
@@ -19,9 +29,11 @@ export default async function Page() {
                 <Link href='../tags/' className="tab rounded-t-md bg-orange-400 text-white">Tags</Link>
             </div>
 
-                {data.map((tag) => (
-                    <p key={tag.id}>{tag.name}</p>
+                <p>
+                {filterDuplicateTags(data).map((tag) => (
+                    <Link className="mr-3 text-amber-800" key={tag} href={`/tags/${tag}`}>{tag}</Link>
                 ))}
+                </p>
 
         </main>
     )
