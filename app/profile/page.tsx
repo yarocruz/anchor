@@ -10,7 +10,7 @@ export default async function Profile() {
     return (
         <main className="container mx-auto my-2 w-auto p-2">
             <div className="my-5">
-                {data.map((link) => (
+                {data.length > 0 ? data.map((link) => (
                     <div key={link.id} className="py-3 border-b-gray-100 border-b-2">
                         <p
                             className="break-words"
@@ -26,7 +26,10 @@ export default async function Profile() {
                             <Link href={`/tags/${tag.name}`} key={tag.id} id={tag.id} className="mr-3 text-amber-800">{tag.name}</Link>
                         )) : null}</p>
                     </div>
-                ))}
+                )) : <p className="max-w-md">
+                        Hi there {session?.user?.name}! You haven't added any Links.
+                        Be sure to go back to the <Link className="text-orange-600" href="/">main page </Link>
+                        and start adding some links.</p>}
 
             </div>
         </main>

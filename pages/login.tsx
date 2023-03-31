@@ -22,7 +22,8 @@ export default function Login() {
     const formik = useFormik({
         initialValues: {
             email: '',
-            password: ''
+            password: '',
+            preventDefault: true,
         },
         validate: login_validate,
         onSubmit,
@@ -76,7 +77,7 @@ export default function Login() {
                     </button>
                 </div>
                 <div className="input-button">
-                    <button type='submit' className={styles.button_custom} onClick={() => signIn('google', { callbackUrl: 'http://localhost:3000'})}>
+                    <button className={styles.button_custom} onClick={() => signIn('google', { callbackUrl: 'http://localhost:3000'})}>
                         Sign In with Google <Image src={'/assets/google.svg'} width="20" height={20} alt="Google Logo"></Image>
                     </button>
                 </div>
