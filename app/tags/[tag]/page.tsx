@@ -1,13 +1,7 @@
-import LinkSubmitForm from "../../components/LinkSubmitForm";
-import { getServerSession} from "next-auth";
-import { authOptions } from "../../../pages/api/auth/[...nextauth]";
 import Link from "next/link";
 import getTag from "../../../pages/lib/getTag";
 import prisma from "@/prisma/client";
 export default async function TagPage({ params: { tag } }: { params: { tag: string } }) {
-    //get id from tag
-
-    const session = await getServerSession(authOptions);
     const tagData = await prisma.tag.findFirst({
         where: {
             name: tag
@@ -15,12 +9,27 @@ export default async function TagPage({ params: { tag } }: { params: { tag: stri
     })
 
     const data = await getTag(tagData?.id!)
-    console.log(data)
-
 
     return (
-        data.links.map((link) => (
-            <a href={link.url} key={link.id}>{link.title ? link.title : link.url}</a>
-        ))
+        <main className="container mx-auto my-2 w-auto p-2">
+            <h1 className="my-5 font-bold text-orange-600 underline text-3xl">{data.name}</h1>
+            <div className="my-5">
+                {data.links.map((link) => (
+                    <div key={link.id} className="py-3 border-b-gray-100 border-b-2">
+                        <p
+                            className="break-words"
+                        >
+                            <a
+                                className="text-orange-600"
+                                target="_blank"
+                                href={link.url}
+                            >{link.title ? link.title : link.url}</a>
+                        </p>
+                        <p>{link.description ? link.description : null}</p>
+                    </div>
+                ))}
+
+            </div>
+        </main>
     )
 }
