@@ -1,21 +1,22 @@
+'use client'
+
 import {signIn} from "next-auth/react";
 import Image from 'next/image'
-import "../app/globals.css"
-import styles from "../app/Form.module.css"
+import "../globals.css"
+import styles from "../Form.module.css"
 import React from "react";
 import Link from "next/link";
 import { HiAtSymbol, HiFingerPrint } from "react-icons/hi";
 import { useState } from 'react';
 import { useFormik } from 'formik';
-import { useRouter } from 'next/router';
-import login_validate from "../helpers/validate";
-import Navbar from "@/app/auth/Navbar";
+import { useRouter } from 'next/navigation';
+import login_validate from "../../helpers/validate";
 
 interface LoginData {
     email: string,
     password: string
 }
-export default function Login() {
+export default function Page() {
     const [show, setShow] = useState(false)
     const router = useRouter()
     // formik hook

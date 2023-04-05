@@ -1,11 +1,13 @@
+'use client'
+
 import Link from 'next/link'
-import styles from '../app/Form.module.css';
+import styles from '../Form.module.css';
 import Image from 'next/image'
 import { HiAtSymbol, HiFingerPrint, HiOutlineUser } from "react-icons/hi";
 import { useState } from 'react';
 import { useFormik } from 'formik';
-import { useRouter } from 'next/router';
-import {registerValidate} from '../helpers/validate';
+import { useRouter } from 'next/navigation';
+import {registerValidate} from '../../helpers/validate';
 
 interface SignupData {
     username: string,
@@ -14,7 +16,7 @@ interface SignupData {
     cpassword: string
 }
 
-export default function Register() {
+export default function Page() {
 
     const [show, setShow] = useState({ password: false, cpassword: false })
     const router = useRouter()

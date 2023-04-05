@@ -7,7 +7,8 @@ export const metadata = {
   description: 'Old school bookmarking',
 }
 
-export default function RootLayout({
+
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode
@@ -15,7 +16,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-      <Navbar />
+        <Navbar />
       {children}
       </body>
     </html>

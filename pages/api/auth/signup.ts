@@ -4,6 +4,7 @@ import prisma from "@/prisma/client";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     if (req.method === "POST") {
+        // TODO: Get user name as well
         const { email, password } = req.body;
 
         const hashedPassword = await hash(password, 10);
