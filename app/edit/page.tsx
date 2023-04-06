@@ -1,8 +1,9 @@
 // This form will edit the link with the id of {id}
 
 "use client"
-import React, { useState } from 'react'
-import { useRouter } from "next/navigation"
+import React, {useEffect, useState} from 'react'
+import { useSearchParams } from "next/navigation"
+import {useRouter} from "next/navigation";
 
 interface LinkData {
     id: string,
@@ -13,13 +14,31 @@ interface LinkData {
 }
 
 export default function EditLinkSubmitForm() {
+    const router = useRouter()
+   // get the id from the query string
+    const searchParams = useSearchParams()
+    // populate the form with the link data
     const [linkData, setLinkData] = useState<LinkData>({
         id: '',
         url: '',
         title: '',
         description: '',
         tags: [] })
-    const router = useRouter()
+
+    useEffect(() => {
+        const fetchLinkData = async () => {
+            const response = await fetch(`/api/getLinkData?id=${searchParams?.get('id')}`)
+            const data = await response.json()
+            setLinkData(linkData => ({
+                ...linkData,
+                id: data.id,
+                url: data.url,
+                title: data.title,
+                description: data.description,
+                tags: data.tags.map((tag: { name: string }) => tag.name) }))
+        }
+        fetchLinkData()
+    }, []);
 
     async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault()
@@ -27,7 +46,7 @@ export default function EditLinkSubmitForm() {
             method: 'POST',
             body: JSON.stringify(linkData),
         })
-        router.refresh()
+        router.push('/profile')
         if (!response.ok) {
             console.log(response)
         }
@@ -35,6 +54,7 @@ export default function EditLinkSubmitForm() {
     }
 
     return (
+        <main className="container mx-auto my-2 w-auto p-2">
         <form
             className="flex flex-col w-full max-w-xs"
             onSubmit={handleSubmit}
@@ -73,6 +93,7 @@ export default function EditLinkSubmitForm() {
                 value={linkData.tags.join(' ')}
                 onChange={(event) => {
                     setLinkData({ ...linkData, tags: event.target.value.split(' ') })
+
                 }}
             />
             <button
@@ -80,5 +101,6 @@ export default function EditLinkSubmitForm() {
                 type="submit"
             >Edit Link</button>
         </form>
+        </main>
     )
 }
