@@ -8,6 +8,7 @@ export default async function Page() {
     const session = await getServerSession(authOptions);
     const data = await getTags()
 
+    // do we need this?
     const filterDuplicateTags = (d) => {
         const tags = []
         d.map((tag) => {

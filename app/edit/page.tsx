@@ -96,7 +96,7 @@ export default function EditLinkSubmitForm() {
                 placeholder="Enter tag(s) (optional)"
                 value={linkData.tags.join(' ')}
                 onChange={(event) => {
-                    setLinkData({ ...linkData, tags: event.target.value.split(' ') })
+                    setLinkData({ ...linkData, tags: event.target.value.toLowerCase().split(' ') })
 
                 }}
             />
