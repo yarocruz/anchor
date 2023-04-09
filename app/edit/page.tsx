@@ -42,13 +42,17 @@ export default function EditLinkSubmitForm() {
 
     async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault()
+
+        const tags = linkData.tags.filter((tag: string) => tag.trim() !== '')
+
         const response = await fetch(`/api/editLinks`, {
             method: 'POST',
-            body: JSON.stringify(linkData),
+            body: JSON.stringify({...linkData, tags}),
         })
-        router.push('/profile')
         if (!response.ok) {
             console.log(response)
+        } else {
+            router.push('/profile')
         }
         setLinkData({ id: '', url: '', title: '', description: '', tags: [] })
     }
