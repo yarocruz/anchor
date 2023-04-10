@@ -32,7 +32,7 @@ export default async function Page() {
 
                 <p>
                 {filterDuplicateTags(data).map((tag) => (
-                    <span><Link className="mr-3 text-amber-800 inline-block" key={tag} href={`/tags/${tag}`}>{tag}</Link></span>
+                    <span><Link className="mr-3 text-amber-800 hover:text-amber-500 inline-block" key={tag} href={`/tags/${tag}`}>{tag}</Link></span>
                 ))}
                 </p>
 

@@ -31,7 +31,9 @@ export default function Profile() {
             console.log(links)
             setData(links)
         }
-        fetchSession()
+        if (data.length === 0) {
+            fetchSession()
+        }
     }, []);
 
 
@@ -53,7 +55,7 @@ export default function Profile() {
         <main className="container mx-auto my-2 w-auto p-2">
             <h1>Your Saved Links</h1>
             <div className="my-5">
-                {data.length > 0 ? data.map((link) => (
+                {data.length ? data.map((link) => (
                     <div key={link.id} className="py-3 border-b-gray-100 border-b-2">
                         <p
                             className="break-words"
@@ -66,11 +68,11 @@ export default function Profile() {
                         </p>
                         <p>{link.description ? link.description : null}</p>
                         <p>{link.tags ? link.tags.map(tag => (
-                            <Link href={`/tags/${tag.name}`} key={tag.id} id={tag.id} className="mr-3 text-amber-800">{tag.name}</Link>
+                            <Link href={`/tags/${tag.name}`} key={tag.id} id={tag.id} className="mr-3 text-amber-800 hover:text-amber-500">{tag.name}</Link>
                         )) : null}</p>
                         <p className="my-1">
-                            <span onClick={() => onEdit(link.id)} className="hover:text-gray-500 text-green-900 py-3 mr-3 cursor-pointer">edit</span>
-                            <span onClick={() => onDelete(link.id)} className="hover:text-gray-500 text-red-900 border-b-gray-100 py-1 cursor-pointer">delete</span>
+                            <span onClick={() => onEdit(link.id)} className="hover:text-amber-300 text-white btn-sm bg-amber-500 rounded py-1 mr-3 cursor-pointer">edit</span>
+                            <span onClick={() => onDelete(link.id)} className="hover:text-red-500 text-white btn-sm bg-amber-500 rounded py-1 cursor-pointer">delete</span>
                         </p>
                     </div>
                 )) : <p className="max-w-md">
