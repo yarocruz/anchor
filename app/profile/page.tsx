@@ -73,8 +73,19 @@ export default function Profile() {
                             )) : null}</p>
                             <p className="my-1">
                                 <span onClick={() => onEdit(link.id)} className="hover:text-amber-300 text-white btn-sm bg-amber-500 rounded py-1 mr-3 cursor-pointer">edit</span>
-                                <span onClick={() => onDelete(link.id)} className="hover:text-red-500 text-white btn-sm bg-amber-500 rounded py-1 cursor-pointer">delete</span>
+                                <label htmlFor="my-modal-4" className="hover:text-red-500 text-white btn-sm bg-amber-500 rounded py-1 cursor-pointer">delete</label>
                             </p>
+
+                        {/* modal for warning user when deleting*/}
+                            <input type="checkbox" id="my-modal-4" className="modal-toggle" />
+                            <label htmlFor="my-modal-4" className="modal cursor-pointer">
+                                <label className="modal-box relative" htmlFor="">
+                                    <p className="py-4">Are you sure you want to delete the link?</p>
+                                    <label htmlFor="my-modal-4" className="btn btn-sm bg-amber-500 hover:bg-amber-400 border-0 mr-4">Cancel</label>
+                                    <label htmlFor="my-modal-4" className="btn btn-sm bg-orange-500 hover:bg-orange-600 border-0" onClick={() => onDelete(link.id)}>Confirm</label>
+                                </label>
+
+                            </label>
                         </div>
                     )) : <p className="max-w-md">
                         Hi there {session?.user?.name}! You haven't added any Links.
