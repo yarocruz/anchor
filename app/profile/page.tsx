@@ -3,9 +3,10 @@
 import { useState, useEffect } from "react";
 import getUserLinks from "../../pages/lib/getUserLinks";
 import Link from "next/link";
-import {getSession, useSession} from "next-auth/react";
+import {getSession} from "next-auth/react";
 import { useRouter } from "next/navigation";
 import {Session} from "next-auth";
+import deleteLink from "../../pages/lib/deleteLink";
 
 interface LinkData {
     id: string,
@@ -40,6 +41,14 @@ export default function Profile() {
         router.push(`/edit/?id=${id}`)
     }
 
+    const onDelete = (id: string) => {
+        // delete the link from the database
+        deleteLink(id)
+        // remove the link from the data array
+        const newData = data.filter((link: LinkData) => link.id !== id)
+        setData(newData)
+    }
+
     return (
         <main className="container mx-auto my-2 w-auto p-2">
             <h1>Your Saved Links</h1>
@@ -60,8 +69,8 @@ export default function Profile() {
                             <Link href={`/tags/${tag.name}`} key={tag.id} id={tag.id} className="mr-3 text-amber-800">{tag.name}</Link>
                         )) : null}</p>
                         <p className="my-1">
-                            <span onClick={() => onEdit(link.id)} className="text-base-100 rounded py-1 btn-sm bg-orange-400 mr-1">edit</span>
-                            <span className="text-base-100 rounded py-1 btn-sm bg-orange-600 mr-3">delete</span>
+                            <span onClick={() => onEdit(link.id)} className="hover:text-gray-500 text-green-900 py-3 mr-3 cursor-pointer">edit</span>
+                            <span onClick={() => onDelete(link.id)} className="hover:text-gray-500 text-red-900 border-b-gray-100 py-1 cursor-pointer">delete</span>
                         </p>
                     </div>
                 )) : <p className="max-w-md">
