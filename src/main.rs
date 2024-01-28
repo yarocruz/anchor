@@ -10,6 +10,7 @@ use tower_http::services::{ServeDir, ServeFile};
 async fn main() {
     let app = Router::new()
         .route("/hello", get(handler))
+        .route("/greeting", get(greeting))
         .fallback_service(
             Router::new().nest_service("/", get_service(ServeDir::new("./assets")))
         );
@@ -21,6 +22,10 @@ async fn main() {
 
 async fn handler() -> Html<&'static str> {
     Html("<h1>Hello World!</h1>")
+}
+
+async fn greeting() -> Html<&'static str> {
+    Html("<h1>From the input</h1>")
 }
 
 

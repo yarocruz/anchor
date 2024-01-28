@@ -6,10 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Anchor</title>
     <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
     <h1>Hello From Axum!</h1>
+
+    <button hx-get="/hello" hx-swap="outerHTML">Click Me</button>
+
+    <input type="text" name="q" hx-get="/greeting" hx-target="#search-results" placeholder="Type in your name...">
+    <div id="search-results"></div>
 </body>
 
 </html>
