@@ -1,6 +1,6 @@
 use axum::{
     response::Html,
-    routing::{get, get_service},
+    routing::{get, get_service, post},
     Router
 };
 
@@ -10,7 +10,7 @@ use tower_http::services::{ServeDir, ServeFile};
 async fn main() {
     let app = Router::new()
         .route("/hello", get(handler))
-        .route("/greeting", get(greeting))
+        .route("/greeting", post(greeting))
         .fallback_service(
             Router::new().nest_service("/", get_service(ServeDir::new("./assets")))
         );
